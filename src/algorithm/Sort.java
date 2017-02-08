@@ -20,9 +20,26 @@ public class Sort {
     return arr;
   }
 
+  public static int[] insertSort(int[] arr) {
+    for(int i = 1; i < arr.length; i ++) {
+      int j = 0;
+      Boolean found = false;
+      while(j < i && !found) {
+        if (arr[i] < arr[j]) {
+          int tmp = arr[j];
+          arr[j] = arr[i];
+          arr[i] = tmp;
+          found = true;
+        }
+        j++;
+      }
+    }
+    return arr;
+  }
+
   public static void main(String [] args) {
     int[] arr = new int[] {0, 8, 6, 4, 1, 15, 9};
-    arr = bubbleSort(arr);
+    arr = insertSort(arr);
     for (int elm : arr) {
       System.out.println(elm);
     }
