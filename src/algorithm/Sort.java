@@ -1,5 +1,9 @@
 package algorithm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by swu on 08/02/2017.
  */
@@ -23,13 +27,11 @@ public class Sort {
   public static int[] insertSort(int[] arr) {
     for(int i = 1; i < arr.length; i ++) {
       int j = 0;
-      Boolean found = false;
-      while(j < i && !found) {
+      while(j < i) {
         if (arr[i] < arr[j]) {
           int tmp = arr[j];
           arr[j] = arr[i];
           arr[i] = tmp;
-          found = true;
         }
         j++;
       }
@@ -37,9 +39,97 @@ public class Sort {
     return arr;
   }
 
+  private static int[] merge(int[] arr1, int[] arr2) {
+    int[] result = new int[arr1.length + arr2.length];
+    int i = 0, j = 0, index = 0;
+    while(i < arr1.length || j < arr2.length) {
+      if (j == arr2.length) {
+        result[index] = arr1[i];
+        i++;
+      } else if (i == arr1.length) {
+        result[index] = arr2[j];
+        j++;
+      } else if (arr1[i] <= arr2[j]) {
+        result[index] = arr1[i];
+        i++;
+      } else {
+        result[index] = arr2[j];
+        j++;
+      }
+      index++;
+    }
+    return result;
+  }
+
+  private static int[] copyArray(int[] arr, int start, int end) {
+    int[] newArray = new int[end - start];
+    for (int i = 0; i < newArray.length; i ++) {
+      newArray[i] = arr[start + i];
+    }
+    return newArray;
+  }
+
+  private static int[] mergeSortR(int[] arr) {
+    if (arr.length > 1) {
+      int middle = arr.length/2;
+      int[] arr1 = mergeSortR(copyArray(arr, 0, middle));
+      int[] arr2 = mergeSortR(copyArray(arr, middle, arr.length));
+      return merge(arr1, arr2);
+    } else {
+      return arr;
+    }
+  }
+
+  public static int[] mergeSort(int[] arr) {
+    return mergeSortR(arr);
+  }
+
+  private static ArrayList[] partition(List<Integer> arr, int pivot) {
+    ArrayList[] result = new ArrayList[2];
+    ArrayList<Integer> left = new ArrayList<Integer>(arr.size());
+    ArrayList<Integer> right = new ArrayList<Integer>(arr.size());
+    result[0] = left;
+    result[1] = right;
+    for(Integer i : arr) {
+      if (i < pivot) {
+        left.add(i);
+      } else {
+        right.add(i);
+      }
+    }
+    return result;
+  }
+
+  private static ArrayList<Integer> quickSortR(ArrayList<Integer> arr) {
+    if (arr.size() < 2) {
+      return arr;
+    } else {
+      Integer pivot = arr.get(0);
+      ArrayList[] result = partition(arr.subList(1, arr.size()), pivot);
+      quickSortR(result[0]);
+      quickSortR(result[1]);
+      result[0].add(pivot);
+      result[0].addAll(result[1]);
+      return result[0];
+    }
+  }
+
+  public static int[] quickSort(int[] arr) {
+    ArrayList newList = new ArrayList<Integer>(arr.length);
+    for (int i = 0; i < arr.length; i ++) {
+      newList.add(new Integer(arr[i]));
+    }
+    ArrayList<Integer> resultList = quickSortR(newList);
+    int[] result = new int[arr.length];
+    for (int i = 0; i < arr.length; i ++) {
+      result[i] = resultList.get(i).intValue();
+    }
+    return result;
+  }
+
   public static void main(String [] args) {
-    int[] arr = new int[] {0, 8, 6, 4, 1, 15, 9};
-    arr = insertSort(arr);
+    int[] arr = new int[] {8, 0, 3, 2};
+    arr = quickSort(arr);
     for (int elm : arr) {
       System.out.println(elm);
     }
