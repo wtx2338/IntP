@@ -2,6 +2,7 @@ package algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -106,8 +107,8 @@ public class Sort {
     } else {
       Integer pivot = arr.get(0);
       ArrayList[] result = partition(arr.subList(1, arr.size()), pivot);
-      quickSortR(result[0]);
-      quickSortR(result[1]);
+      result[0] = quickSortR(result[0]);
+      result[1] = quickSortR(result[1]);
       result[0].add(pivot);
       result[0].addAll(result[1]);
       return result[0];
@@ -128,7 +129,7 @@ public class Sort {
   }
 
   public static void main(String [] args) {
-    int[] arr = new int[] {8, 0, 3, 2};
+    int[] arr = new int[] {8, 0, 3, 2 , 1, 14, 12, 24 , 13, 12};
     arr = quickSort(arr);
     for (int elm : arr) {
       System.out.println(elm);
