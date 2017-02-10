@@ -128,9 +128,56 @@ public class Sort {
     return result;
   }
 
+  private static ArrayList<Integer> toArrayList(int[] arr) {
+    ArrayList newList = new ArrayList<Integer>(arr.length);
+    for (int i = 0; i < arr.length; i ++) {
+      newList.add(new Integer(arr[i]));
+    }
+    return newList;
+  }
+
+  private static int[] toTable(ArrayList<Integer> list) {
+    int[] result = new int[list.size()];
+    for (int i = 0; i < result.length; i ++) {
+      result[i] = list.get(i).intValue();
+    }
+    return result;
+  }
+
+  public static int[] radixSort(int[] arr) {
+    ArrayList<Integer> list = toArrayList(arr);
+    // End if all digital is 0;
+    Boolean notEnd = true;
+    int level = 1;
+    while(notEnd) {
+      notEnd = false;
+      // 10 is the supposed max number of digital
+      HashMap<Integer, ArrayList> result = new HashMap(10);
+      for (int i = 0; i < list.size(); i++) {
+        Integer value = list.get(i);
+        Integer digital = (value % (int) Math.pow(10, level)) / (int) Math.pow(10, level-1);
+        notEnd = notEnd || digital != 0;
+        if (result.containsKey(digital)) {
+          result.get(digital).add(value);
+        } else {
+          result.put(digital, new ArrayList<Integer>(100));
+          result.get(digital).add(value);
+        }
+      }
+      list = new ArrayList<Integer>(arr.length);
+      for(int i = 9; i >= 0; i--) {
+        if(result.containsKey(i)) {
+          list.addAll(result.get(i));
+        }
+      }
+      level++;
+    }
+    return toTable(list);
+  }
+
   public static void main(String [] args) {
     int[] arr = new int[] {8, 0, 3, 2 , 1, 14, 12, 24 , 13, 12};
-    arr = quickSort(arr);
+    arr = radixSort(arr);
     for (int elm : arr) {
       System.out.println(elm);
     }
