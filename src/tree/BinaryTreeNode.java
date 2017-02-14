@@ -8,20 +8,38 @@ public class BinaryTreeNode {
   BinaryTreeNode right;
   BinaryTreeNode parent;
   boolean isLeaf = true;
-  int value;
+  String value;
 
-  public void setLeaf(BinaryTreeNode l, BinaryTreeNode r) {
+  public BinaryTreeNode() {
+    super();
+    left = null;
+    right = null;
+    parent = null;
+    isLeaf = true;
+    value = "";
+  }
+
+  public BinaryTreeNode(String v) {
+    super();
+    left = null;
+    right = null;
+    parent = null;
+    isLeaf = true;
+    value = v;
+  }
+
+  public void setLeft(BinaryTreeNode l) {
     if (l != null) {
       this.left = l;
       this.left.parent = this;
-    } else {
-      this.left = null;
     }
+    isLeaf = false;
+  }
+
+  public void setRight(BinaryTreeNode r) {
     if (r != null) {
       this.right = r;
       this.right.parent = this;
-    } else {
-      this.right = null;
     }
     isLeaf = false;
   }

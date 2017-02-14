@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by swu on 08/02/2017.
@@ -42,7 +44,30 @@ public class DataStructure {
   }
 
 
-  public void main() {
+  public static void main(String [] args) {
+    Stack<String> stack = new Stack<>();
+    stack.push("A");
+    stack.push("B");
+    System.out.println(stack);
+    stack.pop();
+    System.out.println(stack);
 
+    Queue<String> queue = new ArrayBlockingQueue<String>(10);
+    queue.add("A");
+    queue.add("B");
+    System.out.println(queue);
+    queue.poll();
+    System.out.println(queue);
+
+    Deque<String> deque = new ArrayDeque<String>();
+    deque.add("A");
+    deque.add("B");
+    deque.add("C");
+    deque.add("D");
+    System.out.println(deque);
+    deque.poll();
+    System.out.println(deque);
+    deque.pop();
+    System.out.println(deque);
   }
 }

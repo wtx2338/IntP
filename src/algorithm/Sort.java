@@ -177,7 +177,8 @@ public class Sort {
 
   public static void main(String [] args) {
     int[] arr = new int[] {8, 0, 3, 2 , 1, 14, 12, 24 , 13, 12};
-    arr = radixSort(arr);
+    //arr = radixSort(arr);
+    Arrays.sort(arr);
     for (int elm : arr) {
       System.out.println(elm);
     }
