@@ -6,7 +6,7 @@ import java.util.LinkedList;
 /**
  * Created by swu on 15/02/2017.
  *
- * Graph implemented by Adjacency List
+ * AdjacencyListGraph implemented by Adjacency List
  */
 public class Graph {
   ArrayList<GraphNode> nodes;

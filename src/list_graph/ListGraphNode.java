@@ -10,4 +10,8 @@ public class ListGraphNode {
   public ListGraphNode(String v) {
     value = v;
   }
+
+  public String toString() {
+    return value;
+  }
 }

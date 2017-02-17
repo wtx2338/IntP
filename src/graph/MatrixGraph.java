@@ -3,7 +3,7 @@ package graph;
 /**
  * Created by swu on 15/02/2017.
  *
- * Graph implemented by Matrix
+ * AdjacencyListGraph implemented by Matrix
  */
 public class MatrixGraph {
   GraphNode[] nodes;
