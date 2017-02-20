@@ -175,12 +175,66 @@ public class Sort {
     return toTable(list);
   }
 
+  /**
+   * For given index in arr, the parent node's index is the return value
+   * @param index
+   * @return
+   */
+  private static int parent_index(int index) {
+    if (index == 0) return -1;
+    return (index - 1) / 2;
+  }
+
+  private static int lest_index(int index) {
+    return index * 2 + 1;
+  }
+
+  private static int right_index(int index) {
+    return index * 2 + 2;
+  }
+
+  private static void swap(int[] arr, int index_1, int index_2) {
+    int v1 = arr[index_1];
+    arr[index_1] = arr[index_2];
+    arr[index_2] = v1;
+  }
+
+  /**
+   * Create a heap till the size = count
+   * @param arr
+   * @param count
+   */
+  public static void create_max_heap(int[] arr, int count) {
+    for(int i = 0; i < count; i++) {
+      int parent_index = parent_index(i);
+      // We need to do this for every parent index
+      int current = i;
+      while (parent_index >= 0) {
+        if (arr[current] > arr[parent_index]) {
+          swap(arr, current, parent_index);
+          current = parent_index;
+          parent_index = parent_index(parent_index);
+        } else {
+          // If not swapped, do not
+          parent_index = -1;
+        }
+      }
+    }
+  }
+
+  public static void heap_sort(int[] arr, int count) {
+    while(count > 0) {
+      create_max_heap(arr, count);
+      swap(arr, 0, --count);
+    }
+  }
+
   public static void main(String [] args) {
     int[] arr = new int[] {8, 0, 3, 2 , 1, 14, 12, 24 , 13, 12};
     //arr = radixSort(arr);
-    Arrays.sort(arr);
+    heap_sort(arr, arr.length);
     for (int elm : arr) {
-      System.out.println(elm);
+      System.out.print(elm + " ");
     }
   }
 }
